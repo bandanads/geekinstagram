@@ -1,0 +1,10 @@
+<%= form_for @test do |f| %>
+    <div class="field">
+        <%= f.label :image %>
+        <%= f.file_field :image %>
+    </div>
+    
+    <%= f.label :body %>
+    <%= f.text_field :body, :size => 140 %> 
+    <%= f.submit "編集する" %>
+  <% end %>

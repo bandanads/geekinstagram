@@ -1,0 +1,45 @@
+<h1>GeekInstagram</h1>
+<h3>投稿一覧</h3>
+<%= link_to "ログイン", tests_path %>
+<%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<%= link_to "新規登録", new_user_registration_path %>
+<%= link_to "新規投稿へ", new_test_path %>
+<% if user_signed_in? %>
+<%= link_to "マイページへ", user_path(current_user.id) %>
+<% end %>
+<h3>投稿を検索</h3>
+ <%= form_tag({controller:"tests",action:"index"}, method: :get) do %>
+   <%= text_field_tag :search %>
+   <%= submit_tag '検索する'  %>
+<% end %>
+
+<div class="tests-container">
+
+  <% @tests.each do |t| %>
+    <div class="test">
+        <%= image_tag t.image_url, size: "250x200" if t.image? %>
+        
+        <%= t.body %>
+        <% if user_signed_in? %>
+          <% if current_user.already_liked?(t) %>
+            <%= link_to test_like_path(id: t.id, test_id: t.id), method: :delete do %>
+              <i class="fas fa-heart"></i><%= t.likes.count %>
+            <% end %>
+          <% else %>
+            <%= link_to test_likes_path(id: t.id, test_id: t.id), method: :post do %>
+              <i class="far fa-heart"></i><%= t.likes.count %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <i class="far fa-heart"></i><%= t.likes.count %>
+        <% end %>
+        <%= t.created_at %>
+        <%= t.user.email %>
+        <%= link_to "詳細へ", test_path(t.id) %>
+        <% if user_signed_in? && current_user.id == t.user_id %> 
+          <%= link_to "編集する", edit_test_path(t.id) %>
+          <%= button_to "削除する", test_path(t.id), method: :delete %>
+        <% end %>
+    </div>
+  <% end %>
+</div>
