@@ -1,7 +1,11 @@
 <h1>マイページ</h1>
 <p>名前 : <%= @user.name %></p>
 
-<%= image_tag @user.image_url, class: "rounded-circle", size: "150x150" if @user.image? %>
+<% if @user.image? %>                                                              
+<%= image_tag @user.image.url, class: "rounded-circle", size: "150x150" %>
+<% else %>
+<%= image_tag "16_2_302.png", class: "rounded-circle", size: "150x150" %>
+<% end %>
 <p>メールアドレス : <%= @user.email %></p>
 <p>プロフィール : <%= @user.profile %></p>
 <% if current_user.id == @user.id %>

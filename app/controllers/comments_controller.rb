@@ -15,22 +15,18 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-      test = Test.find(params[:test_id])
-      
-      
-      if comment.destroy
-        redirect_to test_path(@test), notice: 'コメントを削除しました'
-      else
-        flash.now[:alert] = 'コメント削除に失敗しました'
-        render test_path(@test)
-      end
+      comment = Comment.find_by(test_id: params[:test_id], user_id: current_user.id)
+      comment.destroy
+      redirect_back(fallback_location: root_path)
+     
+        
     end
 
     
   
     private
     def comment_params
-      params.permit(:content)
+      params.require(:comment).permit(:content)
     end
     
 end
