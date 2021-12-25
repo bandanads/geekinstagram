@@ -15,7 +15,7 @@ Rails.application.routes.draw do
  
     resources :tests do
       resources :likes, only: [:create, :destroy]
-      resources :comments, only: [:create]
+      resources :comments, only: [:create, :destroy]
     end
     root 'tests#index'
 end

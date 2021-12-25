@@ -1,29 +1,37 @@
 
 <h3>投稿詳細</h3>
-<div class="test">
-  <p><%= @test.body %></p>
-  <p><%= @test.created_at %></p>
+<div class="card show" style="width: 40rem; height: 30rem">
+  <p> User: <a href="/users/<%= @test.user.id %>"><%= @test.user.name %></a></p>
+  <p class="card-img-top"><%= image_tag @test.image_url, size: "400x200" if @test.image?%></p>
+
+  <div class="card-body">
+  <p class="card-text">内容: <%= @test.body %></p>
+  
+
+    <% if user_signed_in? %>
+          <% if current_user.already_liked?(@test) %>
+              <%= link_to test_like_path(@test), method: :delete do %>
+                <i class="fas fa-heart"></i><%= @test.likes.count %>
+              <% end %>
+          <% else %>
+              <%= link_to test_likes_path(@test), method: :post do %>
+                <i class="far fa-heart"></i><%= @test.likes.count %>
+              <% end %>
+          <% end %>
+    <% else %>
+      <i class="far fa-heart"></i><%= @test.likes.count %>
+    <% end %>
+  </div>
 </div>
-<% if user_signed_in? %>
-      <% if current_user.already_liked?(@test) %>
-          <%= link_to test_like_path(@test), method: :delete do %>
-            <i class="fas fa-heart"></i><%= @test.likes.count %>
-          <% end %>
-      <% else %>
-          <%= link_to test_likes_path(@test), method: :post do %>
-            <i class="far fa-heart"></i><%= @test.likes.count %>
-          <% end %>
-      <% end %>
-<% else %>
-  <i class="far fa-heart"></i><%= @test.likes.count %>
-<% end %>
 <div class="comment-wrapper">
   <p>コメント一覧</p>
   <% @comments.each do |c| %>
     <div>
+      <%= c.user.name %>
       <%= c.user.email unless c.user.blank? %>
       <br>
       <%= c.content %>
+
     </div>
       <br>
   <% end %>

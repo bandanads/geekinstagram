@@ -1,19 +1,24 @@
 <h1>マイページ</h1>
 <p>名前 : <%= @user.name %></p>
+<%= image_tag @user.image_url, size: "150x150" if @user.image? %>
+
 <p>メールアドレス : <%= @user.email %></p>
 <p>プロフィール : <%= @user.profile %></p>
-<%= render 'follow_form' %>
-<%= render 'stats' %>
-
 <% if current_user.id == @user.id %>
   <%= link_to "編集する", edit_user_registration_path %>
 <% end %>
+<%= render 'follow_form' %>
+<%= render 'stats' %>
 
-<h2>ユーザーの投稿一覧</h2>
-<% @user.tests.each do |t| %>
-  <%= t.user.name %>
-  <%= t.body %>
-<% end %>
+<h2 class="m-3">ユーザーの投稿一覧</h2>
+  <div class="contaner ml-5">
+    <div class="row">
+      <% @user.tests.each do |t| %>
+          <p class="card m-2"><%= image_tag t.image_url, size: "250x200" if t.image? %>
+          <%= link_to "詳細へ", test_path(t.id) %></p>
+      <% end %>
+    </div>
+  </div>
 
 
 
