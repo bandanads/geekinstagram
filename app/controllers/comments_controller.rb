@@ -14,11 +14,23 @@ class CommentsController < ApplicationController
       end
     end
 
+    def destroy
+      test = Test.find(params[:test_id])
+      
+      
+      if comment.destroy
+        redirect_to test_path(@test), notice: 'コメントを削除しました'
+      else
+        flash.now[:alert] = 'コメント削除に失敗しました'
+        render test_path(@test)
+      end
+    end
+
     
   
     private
     def comment_params
-      params.require(:comment).permit(:content)
+      params.permit(:content)
     end
     
 end
