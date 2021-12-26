@@ -29,7 +29,8 @@
       margin-top: -10px;
       font-weight: bold;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+      flex-direction: row;
       align-items: center;
     }
     header a {

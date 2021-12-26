@@ -47,7 +47,7 @@
 </div>
 <h2>いいねしたユーザー</h2>
 <% @test.liked_users.each do |user| %>
-  <li><%= user.email %></li>
+  <p> User: <a href="/users/<%= @test.user.id %>"><%= @test.user.name %></a></p>
 <% end %>
 <%= link_to "編集する", edit_test_path(@test.id) %>
 <%= link_to "投稿一覧に戻る", tests_path %>

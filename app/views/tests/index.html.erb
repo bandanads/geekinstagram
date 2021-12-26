@@ -1,19 +1,20 @@
 
+<div class="k">
+  <h3>投稿を検索</h3>
+  <%= form_tag({controller:"tests",action:"index"}, method: :get) do %>
+    <%= text_field_tag :search %>
+    <%= submit_tag '検索する'  %>
+  <% end %>
+</div>
 
-<h3>投稿を検索</h3>
- <%= form_tag({controller:"tests",action:"index"}, method: :get) do %>
-   <%= text_field_tag :search %>
-   <%= submit_tag '検索する'  %>
-<% end %>
-
-<h3>投稿一覧</h3>
+<h3 class="i">投稿一覧</h3>
 <div class="container">
   <div class="row">
     <% @tests.each do |t| %>
-    <div class="col-md-4">
+    <div class="col-md-4 card mt-3">
     
       <p> User: <a href="/users/<%= t.user.id %>"><%= t.user.name %></a></p>
-      <p class="image"><%= image_tag t.image_url, size:"300x300" if t.image? %></p>
+      <p class="image"><%= image_tag t.image_url, size:"100%" if t.image? %></p>
       
       <p><%= t.body %></p>
       <% if user_signed_in? %>
@@ -30,7 +31,7 @@
         <i class="far fa-heart"></i><%= t.likes.count %>
       <% end %>
       
-      <%= t.user.email %>
+      
       <p><%= link_to "詳細へ", test_path(t.id) %></p>
       <% if user_signed_in? && current_user.id == t.user_id %> 
         <%= link_to "編集する", edit_test_path(t.id) %>
