@@ -31,7 +31,7 @@
       <i class="far fa-calender-alt"></i><%= c.created_at %>
       <br>
       <%= c.content %>
-      <%= link_to '削除', test_comment_path(@test), method: :delete %>
+      <%= link_to '削除', test_comment_path(@test, c), method: :delete %>
     </div>
       <br>
   <% end %>

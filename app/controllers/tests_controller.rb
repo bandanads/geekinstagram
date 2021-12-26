@@ -3,12 +3,10 @@ class TestsController < ApplicationController
     def index
         @tests =Test.all
 
-      if params[:search] == nil
-        @tests= Test.all
-      elsif params[:search] == ''
-        @tests= Test.all
-      else
+      if params[:search] != nil && params[:search] !=''
         @tests = Test.where("body LIKE ? ",'%' + params[:search] + '%')
+      else
+        @tests =Test.all
       end
     end
 
