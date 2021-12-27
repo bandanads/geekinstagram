@@ -1,11 +1,11 @@
 
 <h3>投稿詳細</h3>
-<div class="card show" style="width: 40rem; height: 30rem">
+<div class="card show">
   <p> User: <a href="/users/<%= @test.user.id %>"><%= @test.user.name %></a></p>
-  <p class="card-img-top"><%= image_tag @test.image_url, size: "400x200" if @test.image?%></p>
+  <p><%= image_tag @test.image_url, size: "100%" if @test.image?%></p>
 
-  <div class="card-body">
-  <p class="card-text">内容: <%= @test.body %></p>
+  
+  <p >内容: <%= @test.body %></p>
   
 
     <% if user_signed_in? %>
@@ -21,7 +21,7 @@
     <% else %>
       <i class="far fa-heart"></i><%= @test.likes.count %>
     <% end %>
-  </div>
+  
 </div>
 <div class="comment-wrapper">
   <p>コメント一覧</p>

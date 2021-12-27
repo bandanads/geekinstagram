@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@497;700&family=Pushster&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <header>
-    <h1>GeekInstagram</h1>
+    <h1 class="geek">GeekInstagram</h1>
     <%= link_to "ログイン", root_path %>
     <%= link_to "新規登録", new_user_registration_path %>
     <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>

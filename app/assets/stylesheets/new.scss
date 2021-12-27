@@ -1,0 +1,21 @@
+
+.n{
+    width: 60%;
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: antiquewhite;
+    
+}
+
+.field{
+    input[type="text"]{
+      width: 80%;
+      height: 20px;
+      font-size: 14px;
+    }
+    ::placeholder{
+      padding: 5px 5px;
+    }
+  }

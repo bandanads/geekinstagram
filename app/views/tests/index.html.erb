@@ -1,44 +1,45 @@
+<div class="all">
+  <div class="k">
+    <h3>投稿を検索</h3>
+    <%= form_tag({controller:"tests",action:"index"}, method: :get) do %>
+      <%= text_field_tag :search %>
+      <%= submit_tag '検索する', class:"btn btn-outline-success"  %>
+    <% end %>
+  </div>
 
-<div class="k">
-  <h3>投稿を検索</h3>
-  <%= form_tag({controller:"tests",action:"index"}, method: :get) do %>
-    <%= text_field_tag :search %>
-    <%= submit_tag '検索する'  %>
-  <% end %>
-</div>
-
-<h3 class="i">投稿一覧</h3>
-<div class="container">
-  <div class="row">
-    <% @tests.each do |t| %>
-    <div class="col-md-4 card mt-3">
-    
-      <p> User: <a href="/users/<%= t.user.id %>"><%= t.user.name %></a></p>
-      <p class="image"><%= image_tag t.image_url, size:"100%" if t.image? %></p>
+  <h3 class="i">投稿一覧</h3>
+  <div class="container all">
+    <div class="row all">
+      <% @tests.each do |t| %>
+      <div class="col-md-4 card mt-3">
       
-      <p><%= t.body %></p>
-      <% if user_signed_in? %>
-        <% if current_user.already_liked?(t) %>
-          <%= link_to test_like_path(id: t.id, test_id: t.id), method: :delete do %>
-            <i class="fas fa-heart"></i><%= t.likes.count %>
+        <p> User: <a href="/users/<%= t.user.id %>"><%= t.user.name %></a></p>
+        <p class="image"><%= image_tag t.image_url, size:"100%" if t.image? %></p>
+        
+        <p><%= t.body %></p>
+        <% if user_signed_in? %>
+          <% if current_user.already_liked?(t) %>
+            <%= link_to test_like_path(id: t.id, test_id: t.id), method: :delete do %>
+              <i class="fas fa-heart"></i><%= t.likes.count %>
+            <% end %>
+          <% else %>
+            <%= link_to test_likes_path(id: t.id, test_id: t.id), method: :post do %>
+              <i class="far fa-heart"></i><%= t.likes.count %>
+            <% end %>
           <% end %>
         <% else %>
-          <%= link_to test_likes_path(id: t.id, test_id: t.id), method: :post do %>
-            <i class="far fa-heart"></i><%= t.likes.count %>
-          <% end %>
+          <i class="far fa-heart"></i><%= t.likes.count %>
         <% end %>
-      <% else %>
-        <i class="far fa-heart"></i><%= t.likes.count %>
-      <% end %>
-      
-      
-      <p><%= link_to "詳細へ", test_path(t.id) %></p>
-      <% if user_signed_in? && current_user.id == t.user_id %> 
-        <%= link_to "編集する", edit_test_path(t.id) %>
-        <%= button_to "削除する", test_path(t.id), method: :delete %>
+        
+        
+        <p><%= link_to "詳細へ", test_path(t.id) %></p>
+        <% if user_signed_in? && current_user.id == t.user_id %> 
+          <%= link_to "編集する", edit_test_path(t.id) %>
+          <%= button_to "削除する", test_path(t.id), method: :delete %>
+        <% end %>
+      </div>
       <% end %>
     </div>
-    <% end %>
   </div>
 </div>
 
